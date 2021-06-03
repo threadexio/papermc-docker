@@ -12,5 +12,5 @@ else
 	err "You need to agree to the EULA (eula.txt)"
 fi
 
-trap '' INT
-java -Xms$RAM -Xmx$RAM -jar /paper.jar --nogui $@
+start
+screen -x $SESSION
