@@ -6,7 +6,7 @@ ARG JDK=16
 ENV JDK "${JDK}"
 
 # Server install location
-ENV SDIR "/opt"
+ENV SDIR "/server"
 ENV SESSION "srv"
 
 ############################
@@ -37,7 +37,12 @@ RUN ln -s wrapper.sh version
 
 EXPOSE 25565
 
-WORKDIR $SDIR
 ADD entry.sh /entry.sh
+
+RUN useradd -mrs /bin/bash -d "$SDIR" admin
+
+USER admin
+
+WORKDIR $SDIR
 ENTRYPOINT bash /entry.sh
 CMD [ "" ]

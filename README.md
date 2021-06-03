@@ -11,7 +11,7 @@ mkdir ./server
 ```bash
 sudo docker run -it \
 		--name papermc \
-		-v $PWD/server:/opt \
+		-v $PWD/server:/server \
 		-p 25565:25565 \
 		-e eula=true \
 		-e RAM=4G \

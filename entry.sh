@@ -1,5 +1,5 @@
 err() {
-	echo -e "\e[1;31m[✘]\e[0m $@"
+	echo -e "\e[1;31m[✘]\e[0m $*"
 }
 
 if [ ! -f "$PAPER_JAR" ]; then
