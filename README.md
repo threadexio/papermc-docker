@@ -15,10 +15,12 @@ sudo docker run -it \
 		-p 25565:25565 \
 		-e eula=true \
 		-e RAM=4G \
+		-e VERSION=1.16.5 \
+		-e BUILD=762 \
 		thatrandomguy/papermc
 ```
 
-- **ProTip:** Of course you can change the RAM amount to anything else (2G, 512M, etc), and the port to whatever you want
+- **ProTip:** Change the environment variables to fit your needs, for example to update the server just change VERSION and BUILD (https://papermc.io/downloads)
 
 - **Another ProTip:**  Replace `-it` with `-d` to make the server run in the background and attach to the console with `docker exec -it papermc console`
 

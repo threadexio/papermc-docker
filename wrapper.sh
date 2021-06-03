@@ -1,6 +1,6 @@
 #!/bin/bash
 
-launch_cmd="java -Xms$RAM -Xmx$RAM -jar /paper.jar --nogui"
+launch_cmd="java -Xms$RAM -Xmx$RAM -jar $PAPER_JAR --nogui"
 
 _ask() {
 	read -p "$*" -n 1 -r
@@ -28,6 +28,7 @@ case $0 in
 	cd $SDIR
 	echo "Starting..."
 	_start
+	echo 0 > /tmp/stopped
 	;;
 *"reload")
 	cd $SDIR
@@ -39,6 +40,7 @@ case $0 in
 *"stop")
 	echo "Stopping..."
 	_stop
+	echo 1 > /tmp/stopped
 	;;
 *"console")
 	while true; do
@@ -50,6 +52,7 @@ case $0 in
 	_send_input "$*^M"
 	;;
 *"version")
+	java --version
 	$launch_cmd --version
 	;;
 *)

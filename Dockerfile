@@ -1,24 +1,27 @@
 FROM ubuntu
+ARG DEBIAN_FRONTEND=noninteractive
 
-ARG VERSION=1.16.5
-ARG BUILD=762
+# JDK Version to install
 ARG JDK=16
+ENV JDK "${JDK}"
 
+# Server install location
+ENV SDIR "/opt"
+ENV SESSION "srv"
+
+############################
+
+ENV VERSION "1.16.5"
+ENV BUILD "762"
 ENV RAM="2G"
 ENV eula="false"
 
-ENV SDIR "/opt"
-ENV SESSION "srv"
-ENV VERSION "${VERSION}"
-ENV BUILD "${BUILD}"
-ENV JDK "${JDK}"
+############################
 
-ARG DEBIAN_FRONTEND=noninteractive
+ENV PAPER_JAR "paper-$VERSION-$BUILD.jar"
 
 RUN apt-get -q update
 RUN apt-get -q install --no-install-recommends -y screen wget openjdk-${JDK}-jre-headless
-
-RUN wget "https://papermc.io/api/v2/projects/paper/versions/$VERSION/builds/$BUILD/downloads/paper-$VERSION-$BUILD.jar" -O /paper.jar
 
 ADD wrapper.sh /usr/local/bin
 WORKDIR /usr/local/bin
