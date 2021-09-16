@@ -23,26 +23,20 @@ ENV PAPER_JAR "paper-$VERSION-$BUILD.jar"
 RUN apt-get -q update
 RUN apt-get -q install --no-install-recommends -y screen wget openjdk-${JDK}-jre-headless
 
+VOLUME [ "${SDIR}" ]
+RUN useradd -mrs /bin/bash -d "${SDIR}" paper
+
 ADD wrapper.sh /usr/local/bin
 WORKDIR /usr/local/bin
 RUN chmod 755 wrapper.sh
 
-# Setup all actions for the wrapper
 RUN ln -s wrapper.sh start
-RUN ln -s wrapper.sh reload
-RUN ln -s wrapper.sh stop
-RUN ln -s wrapper.sh console
-RUN ln -s wrapper.sh execute
 RUN ln -s wrapper.sh version
 
+USER paper
 EXPOSE 25565
 
-ADD entry.sh /entry.sh
-
-RUN useradd -mrs /bin/bash -d "$SDIR" admin
-
-USER admin
-
 WORKDIR $SDIR
+
+ADD entry.sh /entry.sh
 ENTRYPOINT bash /entry.sh
-CMD [ "" ]
